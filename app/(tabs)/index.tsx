@@ -10,9 +10,11 @@ import DateTimePicker from '@/components/DateTimePicker';
 const HomeScreen: React.FC = () => {
   const [pickupLocation, setPickupLocation] = useState<string>('');
   const [dropoffLocation, setDropoffLocation] = useState<string>('');
+  const [pickupDatetime, setPickupDatetime] = useState<Date | null>(null);
 
   const handleDateSelected = (selectedDate: Date) => {
     console.log('Selected Date:', selectedDate);
+    setPickupDatetime(selectedDate);
   }
 
   return (
@@ -49,6 +51,11 @@ const HomeScreen: React.FC = () => {
       <ThemedView>
         <ThemedText type="subtitle">Scheduled Date & Time</ThemedText>
         <DateTimePicker onDateSelected={handleDateSelected} />
+        {pickupDatetime &&
+        <ThemedText style={styles.dateText}>
+          Selected: {pickupDatetime.toLocaleString()}
+        </ThemedText>
+      }
       </ThemedView>
     </ParallaxScrollView>
   );
